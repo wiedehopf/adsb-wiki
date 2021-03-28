@@ -14,11 +14,12 @@ opts="-s end-$duration -e $end -r 3m -a"
 date '+%F %H:%M' --date="$end-$duration" > /tmp/plotstart
 date '+%F %H:%M' --date="$end" > /tmp/plotend
 
+source /etc/default/graphs1090
 
-rrdtool fetch /var/lib/collectd/rrd/localhost/dump1090-localhost/dump1090_messages-local_accepted.rrd AVERAGE $opts > /tmp/messages_l
-rrdtool fetch /var/lib/collectd/rrd/localhost/dump1090-localhost/dump1090_messages-remote_accepted.rrd AVERAGE $opts > /tmp/messages_r
-rrdtool fetch /var/lib/collectd/rrd/localhost/dump1090-localhost/dump1090_range-max_range.rrd MAX $opts > /tmp/range
-rrdtool fetch /var/lib/collectd/rrd/localhost/dump1090-localhost/dump1090_aircraft-recent.rrd AVERAGE $opts > /tmp/aircraft
+rrdtool fetch "$DB"/localhost/dump1090-localhost/dump1090_messages-local_accepted.rrd AVERAGE $opts > /tmp/messages_l
+rrdtool fetch "$DB"/localhost/dump1090-localhost/dump1090_messages-remote_accepted.rrd AVERAGE $opts > /tmp/messages_r
+rrdtool fetch "$DB"/localhost/dump1090-localhost/dump1090_range-max_range.rrd MAX $opts > /tmp/range
+rrdtool fetch "$DB"/localhost/dump1090-localhost/dump1090_aircraft-recent.rrd AVERAGE $opts > /tmp/aircraft
 
 
 # Remove headers and extraneous :
